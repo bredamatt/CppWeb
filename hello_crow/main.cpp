@@ -1,13 +1,24 @@
 #include "crow_all.h"
 using namespace std;
+using namespace crow;
 
 int main(int argc, char* argv[])
 {
   crow::SimpleApp app;
 
-  CROW_ROUTE(app, "/")
-    ([](){
-      return "<div><h1>Hello, Mattia. Welcome! </h1></div>";
+  CROW_ROUTE(app, "/") // Root file route handler
+    ([](const request &req, response &res){
+      ifstream in("public/index.html", ifstream::in);
+      // Make sure stream
+      if(in){
+        ostringstream contents;
+        contents << in.rdbuf();
+        in.close();
+        res.write(contents.str())
+      } else {
+        res.write("Not found");
+      }
+      res.end();
     });
 
   char* port = getenv("PORT");
