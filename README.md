@@ -13,4 +13,6 @@ It may be useful to start with making the Dockerfile.
 This Dockerfile tells the container which instructions to
 run. These instructions are necessary, since the container
 will by necessity require certain packages to execute the
-code that you are writing. 
+code that you are writing. To specify a compiler, type:
+```FROM gcc:x.x.x ```
+where x.x.x represents the version number. 
