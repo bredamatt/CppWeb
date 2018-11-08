@@ -34,7 +34,8 @@ and:
 
 ```RUN apt-get -qq upgrade```
 
-Note ---> It may be beneficial to move your dockerfile to its own dir.
+NB!
+It is necessary to move your dockerfile to its own directory.
 Hence, execute the following in your terminal:
 
 ```$ cd ~/Project-folder ```
