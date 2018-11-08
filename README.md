@@ -35,7 +35,11 @@ and:
 ```RUN apt-get -qq upgrade```
 
 NB!
-It is necessary to move your dockerfile to its own directory.
+There are two highly important things to note. First of all, we will be using ```cmake```in this project to facilitate the build process. Indeed, this is a key reason why you would be interested in hosting a C++ webserver in a container. Therefore, make sure your Dockerfile has the following specified:
+
+``` RUN apt-get -qq install cmake```
+
+Secondly, it is necessary to move your dockerfile to its own directory.
 Hence, execute the following in your terminal:
 
 ```$ cd ~/Project-folder ```
