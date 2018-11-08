@@ -69,3 +69,5 @@ In this case, we are writing the server in C++ for high performance. Here, we ar
 Crow is very simple to use, just copy ```amalgamate/crow_all.h```and use it in your project by including it in your C++ webserver with:
 
 ```#include "crow_all.h" ```
+
+For more information, see: https://github.com/ipkn/crow
