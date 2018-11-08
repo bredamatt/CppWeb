@@ -3,7 +3,7 @@ using namespace std;
 using namespace crow;
 
 // Route handler helper functions
-void sendFile(resposne &res, string filename, string contentType){
+void sendFile(response &res, string filename, string contentType){
   ifstream in("../public/" + filename, ifstream::in);
   // Make sure stream is something...
   if(in){
@@ -54,7 +54,7 @@ int main(int argc, char* argv[]){
       sendImage(res, filename);
     });
 
-  // The ROOT, or HOMEPAGE 
+  // The ROOT, or HOMEPAGE
   CROW_ROUTE(app, "/")
     ([](const request &req, response &res){
       sendHtml(res, "index");
