@@ -2,23 +2,47 @@
 using namespace std;
 using namespace crow;
 
+// Route handler helper functions 
+void sendFile(resposne &res, string filename, string contentType){
+  ifstream in("../public/" + filename, ifstream::in);
+  // Make sure stream is something...
+  if(in){
+    ostringstream contents;
+    contents << in.rdbuf();
+    in.close();
+    res.set_header("Content-Type", contentType);
+    res.write(contents.str());
+  } else {
+    res.code = 404;
+    res.write("Not found");
+  }
+  res.end();
+}
+
+void sendHtml(response &res, string filename){
+  sendFile(res, filename + ".html", "text/html");
+}
+
+void sendImage(response &res, string filename){
+  sendFile(res, "images/" + filename, "image/jpeg");
+}
+
+void sendScript(response &res, string filename){
+  sendFile(res, "scripts/" + filename, "text/javascript");
+}
+
+void sendStyle(response &res, string filename){
+  sendFile(res, "styles/" + filename, "text/css");
+}
+
+
 int main(int argc, char* argv[])
 {
   crow::SimpleApp app;
 
   CROW_ROUTE(app, "/") // Root file route handler
     ([](const request &req, response &res){
-      ifstream in("../public/index.html", ifstream::in);
-      // Make sure stream is something... Refers to index.html 
-      if(in){
-        ostringstream contents;
-        contents << in.rdbuf();
-        in.close();
-        res.write(contents.str());
-      } else {
-        res.write("Not found");
-      }
-      res.end();
+      sendHtml(res, "index");
     });
 
   char* port = getenv("PORT");
