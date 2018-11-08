@@ -15,7 +15,7 @@ run. These instructions are necessary, since the container
 will by necessity require certain packages to execute the
 code that you are writing.
 
-### Making a Dockerfile 
+### Making a Dockerfile
  To specify a compiler, type:
 
 ```FROM gcc:x.x.x ```
@@ -33,3 +33,12 @@ For example, to upgrade ```apt-get```, type:
 and:
 
 ```RUN apt-get -qq upgrade```
+
+Note ---> It may be beneficial to move your dockerfile to its own dir.
+Hence, execute the following in your terminal:
+
+```$ cd ~/Project-folder ```
+
+```~/Project-folder $ mkdir box ```
+```~/Project-folder $ cd box ```
+```~/Project-folder $ cp ../Dockerfile ~/Project-folder/box``` 
