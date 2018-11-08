@@ -8,7 +8,6 @@ Therefore, the web server is running in an abstract environment, with direct
 access to resources. It may therefore be thought of as an encapsulated service, where connectivity is limited as a consequence. Because the server is written in C++, it is highly efficient from a performance perspective.
 
 
-## Instructions
 It may be useful to start with making the Dockerfile.
 This Dockerfile tells the container which instructions to
 run. These instructions are necessary, since the container
