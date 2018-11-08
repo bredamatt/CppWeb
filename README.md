@@ -56,7 +56,7 @@ To browse the directories in the container (recall this is an OS), run:
 
 ``` docker run -ti box:latest bash```
 
-Voilá! Your container is up and running!
+Voilá! Your container is up and running! You can now navigate inside the container from your terminal. 
 
 ## Making the Web server
-In this case, we are writing the server in C++ for high performance. Here, we are using the Crow microframework. According to the benchmark, crow can handle up to 300,000 requests per second. It also contains both Middleware and Websocket is support, which is neat for building more complex services. 
+In this case, we are writing the server in C++ for high performance. Here, we are using the Crow microframework. According to the benchmark, crow can handle up to 300,000 requests per second. It also contains both Middleware and Websocket is support, which is neat for building more complex services.
