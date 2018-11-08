@@ -15,7 +15,7 @@ run. These instructions are necessary, since the container
 will by necessity require certain packages to execute the
 code that you are writing.
 
-### Making a Dockerfile
+## Making a Dockerfile
  To specify a compiler, type:
 
 ```FROM gcc:x.x.x ```
