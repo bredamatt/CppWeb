@@ -8,13 +8,13 @@ int main(int argc, char* argv[])
 
   CROW_ROUTE(app, "/") // Root file route handler
     ([](const request &req, response &res){
-      ifstream in("public/index.html", ifstream::in);
-      // Make sure stream
+      ifstream in("../public/index.html", ifstream::in);
+      // Make sure stream is something... Refers to index.html 
       if(in){
         ostringstream contents;
         contents << in.rdbuf();
         in.close();
-        res.write(contents.str())
+        res.write(contents.str());
       } else {
         res.write("Not found");
       }
