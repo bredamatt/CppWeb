@@ -59,3 +59,4 @@ To browse the directories in the container (recall this is an OS), run:
 Voilá! Your container is up and running!
 
 ## Making the Web server
+In this case, we are writing the server in C++ for high performance. Here, we are using the Crow microframework. According to the benchmark, crow can handle up to 300,000 requests per second. It also contains both Middleware and Websocket is support. 
