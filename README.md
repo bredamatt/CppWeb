@@ -41,7 +41,9 @@ Hence, execute the following in your terminal:
 ```$ cd ~/Project-folder ```
 
 ```~/Project-folder $ mkdir box ```
+
 ```~/Project-folder $ cd box ```
+
 ```~/Project-folder $ cp ../Dockerfile ~/Project-folder/box```
 
 Once the file is in the ```box```dir, it is time to build the container. Navigate back to the root project folder ```~/Project-folder```, and execute the following:
