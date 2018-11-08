@@ -60,6 +60,12 @@ int main(int argc, char* argv[]){
       sendHtml(res, "index");
     });
 
+
+  CROW_ROUTE(app, "/about")
+    ([](const request &req, response &res){
+      sendHtml(res, "about");
+    });
+
   char* port = getenv("PORT");
   uint16_t iPort = static_cast<uint16_t>(port != NULL? stoi(port): 18080);
   cout << "PORT = " << iPort << "\n";
