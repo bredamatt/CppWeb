@@ -2,7 +2,7 @@
 using namespace std;
 using namespace crow;
 
-// Route handler helper functions 
+// Route handler helper functions
 void sendFile(resposne &res, string filename, string contentType){
   ifstream in("../public/" + filename, ifstream::in);
   // Make sure stream is something...
@@ -36,11 +36,26 @@ void sendStyle(response &res, string filename){
 }
 
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]){
   crow::SimpleApp app;
 
-  CROW_ROUTE(app, "/") // Root file route handler
+  CROW_ROUTE(app, "/styles/<string>") // <string> must match string filename
+    ([](const request &req, response &res, string filename){
+      sendStyle(res, filename);
+    });
+
+  CROW_ROUTE(app, "/scripts/<string>") // <string> must match string filename
+    ([](const request &req, response &res, string filename){
+      sendScript(res, filename);
+    });
+
+  CROW_ROUTE(app, "/images/<string>") // <string> must match string filename
+    ([](const request &req, response &res, string filename){
+      sendImage(res, filename);
+    });
+
+  // The ROOT, or HOMEPAGE 
+  CROW_ROUTE(app, "/")
     ([](const request &req, response &res){
       sendHtml(res, "index");
     });
