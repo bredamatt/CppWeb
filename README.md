@@ -53,4 +53,6 @@ To browse the directories in the container (recall this is an OS), run:
 
 ``` docker run -ti box:latest bash```
 
-Voilá! Your container is up and running! 
+Voilá! Your container is up and running!
+
+## Making the Web server
