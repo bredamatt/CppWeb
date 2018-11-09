@@ -16,13 +16,13 @@
 #include <mongocxx/instance.hpp>
 
 
-using bsoncxx::builder::close_array;
-using bsoncxx::builder::close_document;
-using bsoncxx::builder::document;
-using bsoncxx::builder::finalize;
-using bsoncxx::builder::open_array;
-using bsoncxx::builder::open_document;
-using bsoncxx::builder::kvp;
+using bsoncxx::builder::stream::close_array;
+using bsoncxx::builder::stream::close_document;
+using bsoncxx::builder::stream::document;
+using bsoncxx::builder::stream::finalize;
+using bsoncxx::builder::stream::open_array;
+using bsoncxx::builder::stream::open_document;
+using bsoncxx::builder::basic::kvp;
 using mongocxx::cursor;
 
 using namespace std;
@@ -87,6 +87,7 @@ int main(int argc, char* argv[]){
   CROW_ROUTE(app, "/contacts")
     ([&collection](){
       mongocxx::options::find opts;
+      opts.skip(9);
       opts.limit(10);
       auto docs = collection.find({}, opts);
       std::ostringstream os;
@@ -96,7 +97,7 @@ int main(int argc, char* argv[]){
       }
       return crow::response(os.str());
     });
-    
+
   // The ROOT, or HOMEPAGE
   CROW_ROUTE(app, "/")
     ([](const request &req, response &res){
