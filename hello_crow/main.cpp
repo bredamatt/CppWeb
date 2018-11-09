@@ -27,7 +27,7 @@ using mongocxx::cursor;
 
 using namespace std;
 using namespace crow;
-using namespace cow::mustache;
+using namespace crow::mustache;
 
 string getView(const string &filename, context &x) {
   return load("../public/" + filename + ".html").render(x);
@@ -102,10 +102,10 @@ int main(int argc, char* argv[]){
       contacts.reserve(10);
 
       for(auto doc : docs){
-        contacts.push_back(json::load(bsoncxx:to_json(doc)));
+        contacts.push_back(json::load(bsoncxx::to_json(doc)));
       }
       dto["contacts"] = contacts;
-      return getView("contacts", dto)
+      return getView("contacts", dto);
     });
 
   // The ROOT, or HOMEPAGE
