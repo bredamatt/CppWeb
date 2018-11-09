@@ -142,9 +142,9 @@ int main(int argc, char* argv[]){
     // Returns a JSON object with 10 contacts from API request
     CROW_ROUTE(app, "/api/contacts")
       ([&collection](const request &req){
-        auto limitNum = req.url_params.get("skip");
-        auto skipNum = req.url_params.get("limit");
-        int limit = limitNum? stoi(limitNum): 10;
+        auto limitNum = req.url_params.get("limit"); // tuse this to get value from url
+        auto skipNum = req.url_params.get("skip");
+        int limit = limitNum? stoi(limitNum): 10; // if limitNum is defined, convert to int, else set as 10
         int skip = skipNum? stoi(skipNum): 0;
 
         mongocxx::options::find opts;
