@@ -118,7 +118,7 @@ int main(int argc, char* argv[]){
     });
 
 
-  CROW_ROUTE(app, "/rest_test").method(HTTPMethod::Post) // implementation of Post
+  CROW_ROUTE(app, "/rest_test").methods(HTTPMethod::Post) // implementation of Post
     ([](const request &req, response &res){
       string method = method_name(req.method);
       res.set_header("Content-Type", "text/plain");
