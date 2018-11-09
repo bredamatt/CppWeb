@@ -95,9 +95,11 @@ int main(int argc, char* argv[]){
   CROW_ROUTE(app, "/contact/<string>")
   ([&collection](string email){
     auto doc = collection.find_one(make_document(kvp("email", email)));
-    return crow::response(bsoncxx::to_json(doc.value().view()));
+    crow::json::wvalue dto;
+    dto["contact"] = json::load(bsoncxx::to_json(doc.value().view()));
+    return getView("contact", dto);
   });
-  
+
   CROW_ROUTE(app, "/contacts")
     ([&collection](){
       mongocxx::options::find opts;
@@ -106,7 +108,7 @@ int main(int argc, char* argv[]){
       auto docs = collection.find({}, opts);
       crow::json::wvalue dto; // data transfer object
       vector<crow::json::rvalue> contacts;
-      contacts.reserve(10);
+      contacts.reserve(10); // reserve space of 10 elements in vector
 
       for(auto doc : docs){
         contacts.push_back(json::load(bsoncxx::to_json(doc)));
