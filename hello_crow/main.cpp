@@ -27,7 +27,11 @@ using mongocxx::cursor;
 
 using namespace std;
 using namespace crow;
-using namespace cow::mustache; 
+using namespace cow::mustache;
+
+string getView(const string &filename, context &x) {
+  return load("../public/" + filename + ".html").render(x);
+}
 
 // Route handler helper functions
 void sendFile(response &res, string filename, string contentType){
@@ -65,6 +69,8 @@ void sendStyle(response &res, string filename){
 
 int main(int argc, char* argv[]){
   crow::SimpleApp app;
+  set_base("."); // set location of mustache templates
+
   mongocxx::instance inst{};
   string mongoConnect = std::string(getenv("MONGODB_URI"));
   mongocxx::client conn{mongocxx::uri{mongoConnect}};
@@ -91,12 +97,15 @@ int main(int argc, char* argv[]){
       opts.skip(9);
       opts.limit(10);
       auto docs = collection.find({}, opts);
-      std::ostringstream os;
+      crow::json::wvalue dto; // data transfer object
+      vector<crow::json::rvalue> contacts;
+      contacts.reserve(10);
 
-      for(auto &&doc : docs){
-        os << bsoncxx::to_json(doc) << "\n";
+      for(auto doc : docs){
+        contacts.push_back(json::load(bsoncxx:to_json(doc)));
       }
-      return crow::response(os.str());
+      dto["contacts"] = contacts;
+      return getView("contacts", dto)
     });
 
   // The ROOT, or HOMEPAGE
