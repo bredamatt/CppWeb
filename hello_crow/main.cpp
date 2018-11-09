@@ -95,8 +95,8 @@ int main(int argc, char* argv[]){
         os << bsoncxx::to_json(doc) << "\n";
       }
       return crow::response(os.str());
-      
     });
+    
   // The ROOT, or HOMEPAGE
   CROW_ROUTE(app, "/")
     ([](const request &req, response &res){
