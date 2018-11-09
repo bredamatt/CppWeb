@@ -1,3 +1,6 @@
+// WebSocket is a comms protocol, allowing data transfer between client, and server via TCP channel
+// Uses both WS and WSS  
+
 const url = location.origin.replace(/^http/, 'ws') + '/ws';
 const socket = new WebSocket(url);
 const $log = $('#log');
