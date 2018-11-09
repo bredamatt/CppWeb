@@ -141,10 +141,18 @@ int main(int argc, char* argv[]){
 
     // Returns a JSON object with 10 contacts from API request
     CROW_ROUTE(app, "/api/contacts")
-      ([&collection](const request &req){
+      ([&collection](const request &req, string skipNum, string limitNum){
         mongocxx::options::find opts;
-        opts.skip(9);
-        opts.limit(10);
+
+        if(limitNum){
+          int limit = stoi(limitNum);
+          opts.limit(limit);
+        }
+        if(skipNum){
+          int skip = stoi(skipNum);
+          opts.skip(skip);
+        }
+        
         auto docs = collection.find({}, opts);
         vector<crow::json::rvalue> contacts;
         contacts.reserve(10); // reserve space of 10 elements in vector
