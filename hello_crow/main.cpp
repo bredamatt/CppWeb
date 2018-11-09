@@ -139,7 +139,7 @@ int main(int argc, char* argv[]){
     });
 
   // Integer addition handler
-  CROW_ROUTE(app, "add/<int>/<int>")
+  CROW_ROUTE(app, "/add/<int>/<int>")
     ([](const request &req, response &res, int a, int b){
       res.set_header("Content-Type", "text/plain");
       ostringstream os;
@@ -149,7 +149,7 @@ int main(int argc, char* argv[]){
     });
 
   // Double addition handler
-  CROW_ROUTE(app, "add/<double>/<double>")
+  CROW_ROUTE(app, "/add/<double>/<double>")
     ([](const request &req, response &res, double a, double b){
       res.set_header("Content-Type", "text/plain");
       ostringstream os;
@@ -159,7 +159,7 @@ int main(int argc, char* argv[]){
     });
 
   // String concatenation handler
-  CROW_ROUTE(app, "add/<string>/<string>")
+  CROW_ROUTE(app, "/add/<string>/<string>")
     ([](const request &req, response &res, string a, string b){
       res.set_header("Content-Type", "text/plain");
       ostringstream os;
