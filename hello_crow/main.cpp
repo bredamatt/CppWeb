@@ -27,6 +27,7 @@ using mongocxx::cursor;
 
 using namespace std;
 using namespace crow;
+using namespace cow::mustache; 
 
 // Route handler helper functions
 void sendFile(response &res, string filename, string contentType){
