@@ -121,26 +121,6 @@ int main(int argc, char* argv[]){
     getView(res, "contact", dto);
   });
 
-  // Returns a JSON object with 10 contacts from API request 
-  CROW_ROUTE(app, "/api/contacts")
-    ([&collection](const request &req, response &res){
-      mongocxx::options::find opts;
-      opts.skip(9);
-      opts.limit(10);
-      auto docs = collection.find({}, opts);
-      vector<crow::json::rvalue> contacts;
-      contacts.reserve(10); // reserve space of 10 elements in vector
-
-      for(auto doc : docs){
-        contacts.push_back(json::load(bsoncxx::to_json(doc)));
-      }
-
-      crow::json::wvalue dto; // data transfer object
-      dto["contacts"] = contacts;
-      return crow::response{dto};
-    });
-
-
   // Returns a webpage with 10 contacts from a contacts.json file
   CROW_ROUTE(app, "/contacts")
     ([&collection](const request &req, response &res){
@@ -158,6 +138,25 @@ int main(int argc, char* argv[]){
       dto["contacts"] = contacts;
       getView(res, "contacts", dto);
     });
+
+    // Returns a JSON object with 10 contacts from API request
+    CROW_ROUTE(app, "/api/contacts")
+      ([&collection](const request &req, response &res){
+        mongocxx::options::find opts;
+        opts.skip(9);
+        opts.limit(10);
+        auto docs = collection.find({}, opts);
+        vector<crow::json::rvalue> contacts;
+        contacts.reserve(10); // reserve space of 10 elements in vector
+
+        for(auto doc : docs){
+          contacts.push_back(json::load(bsoncxx::to_json(doc)));
+        }
+
+        crow::json::wvalue dto; // data transfer object
+        dto["contacts"] = contacts;
+        return crow::response{dto};
+      });
 
   // Integer addition handler
   CROW_ROUTE(app, "/add/<int>/<int>")
