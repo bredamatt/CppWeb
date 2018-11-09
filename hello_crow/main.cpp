@@ -95,7 +95,7 @@ int main(int argc, char* argv[]){
   CROW_ROUTE(app, "/contact/<string>")
   ([&collection](string email){
     auto doc = collection.find_one(make_document(kvp("email", email)));
-    crow::json::wvalue dto;
+    crow::json::wvalue dto; // data transfer object
     dto["contact"] = json::load(bsoncxx::to_json(doc.value().view()));
     return getView("contact", dto);
   });
