@@ -117,6 +117,15 @@ int main(int argc, char* argv[]){
       return getView("contacts", dto);
     });
 
+
+  CROW_ROUTE(app, "/rest_test").method(HTTPMethod::Post) // implementation of Post
+    ([](const request &req, response &res){
+      string method = method_name(req.method);
+      res.set_header("Content-Type", "text/plain");
+      res.write(method + " rest_test");
+      res.end();
+    });
+
   // The ROOT, or HOMEPAGE
   CROW_ROUTE(app, "/")
     ([](const request &req, response &res){
