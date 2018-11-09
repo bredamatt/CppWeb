@@ -4,6 +4,10 @@ RUN apt-get -qq update
 RUN apt-get -qq upgrade
 RUN apt-get -qq install cmake
 
+RUN apt-get install git gcc automake autoconf libtool \
+&& git clone https://github.com/mongodb/libbson.git \
+&& cd libbson && ./autogen.sh  && make && make install
+
 RUN apt-get -qq install libboost-all-dev=1.62.0.1
 RUN apt-get -qq install build-essential libtcmalloc-minimal4 && \
   ln -s /usr/lib/libtcmalloc_minimal.so.4 /usr/lib/libtcmalloc_minimal.so
