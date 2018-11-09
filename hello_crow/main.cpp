@@ -1,4 +1,30 @@
 #include "crow_all.h"
+#include <fstream>
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <boost/filesystem.hpp>
+
+
+#include <bsoncxx/builder/stream/document.hpp>
+#include <bsoncxx/json.hpp>
+#include <bsoncxx/oid.hpp>
+
+#include <mongocxx/client.hpp>
+#include <mongocxx/stdx.hpp>
+#include <mongocxx/uri.hpp>
+#include <mongocxx/instance.hpp>
+
+
+using bsoncxx::builder::close_array;
+using bsoncxx::builder::close_document;
+using bsoncxx::builder::document;
+using bsoncxx::builder::finalize;
+using bsoncxx::builder::open_array;
+using bsoncxx::builder::open_document;
+using bsoncxx::builder::kvp;
+using mongocxx::cursor;
+
 using namespace std;
 using namespace crow;
 
@@ -38,6 +64,10 @@ void sendStyle(response &res, string filename){
 
 int main(int argc, char* argv[]){
   crow::SimpleApp app;
+  mongocxx::instance inst{};
+  string mongoConnect = std::string(getenv("MONGODB_URI"));
+  mongocxx::client conn{mongocxx::uri{mongoConnect}};
+  auto collection = conn["heroku_vw7x7j3f"]["contacts"];
 
   CROW_ROUTE(app, "/styles/<string>") // <string> must match string filename
     ([](const request &req, response &res, string filename){
@@ -54,6 +84,19 @@ int main(int argc, char* argv[]){
       sendImage(res, filename);
     });
 
+  CROW_ROUTE(app, "/contacts")
+    ([&collection](){
+      mongocxx::options::find opts;
+      opts.limit(10);
+      auto docs = collection.find({}, opts);
+      std::ostringstream os;
+
+      for(auto &&doc : docs){
+        os << bsoncxx::to_json(doc) << "\n";
+      }
+      return crow::response(os.str());
+      
+    });
   // The ROOT, or HOMEPAGE
   CROW_ROUTE(app, "/")
     ([](const request &req, response &res){
