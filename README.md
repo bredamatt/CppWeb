@@ -57,56 +57,29 @@ The structure of the repository is as follows:
 
 ## Instructions
 
+### Usage
+To test this simply execute the following commands from your terminal:
 
-### Making a Dockerfile
- To specify a compiler, type:
+```$ git clone ```
 
-```FROM gcc:x.x.x ```
+Navigate to the /hello_crow dir and execute (remember the . ):
 
-where ```x.x.x``` represents the version number of the gcc compiler. Of course, other compilers can be specified too.
+```$ docker build --rm --squash --no-cache -t hello_crow:latest . ```
 
-To specify a command to be executed, type:
+Follow the instructions on https://devcenter.heroku.com/articles/container-registry-and-runtime to deploy your container to Heroku.
 
-```RUN "command" ```
+Navigate to localhost:8080 in Chrome, then use the route handlers as specified in main.cpp to test the service. You should be able to:
 
-For example, to upgrade ```apt-get```, type:
+1. View contacts in JSON
+2. View contacts in formatted JSON (AJAX Bulma)
+3. Enter a chat room
+4. Query a specific contact
+5. Adding doubles, integers, or strings
+6. Accessing an about page
 
-```RUN apt-get -qq update```
+Try to look these up in ```main.cpp```
 
-and:
-
-```RUN apt-get -qq upgrade```
-
-**NB!**
-
-There are two highly important things to note. First of all, we will be using ```cmake```in this project to facilitate the build process. Indeed, this is a key reason why you would be interested in hosting a C++ webserver in a container. Therefore, make sure your Dockerfile has the following specified:
-
-``` RUN apt-get -qq install cmake```
-
-Secondly, it is necessary to move your dockerfile to its own directory.
-Hence, execute the following in your terminal:
-
-```$ cd ~/Project-folder ```
-
-```~/Project-folder $ mkdir box ```
-
-```~/Project-folder $ cd box ```
-
-```~/Project-folder $ cp ../Dockerfile ~/Project-folder/box```
-
-Once the file is in the ```box```dir, it is time to build the container. Navigate back to the root project folder ```~/Project-folder```, and execute the following:
-
-``` $ docker build -t box```
-
-This builds the container and may take some time based upon the dependencies you specified in the Dockerfile (libraries, tools fetched and installed via RUN commands).
-
-To browse the directories in the container (recall this is an OS), run:
-
-``` docker run -ti box:latest bash```
-
-Voilá! Your container is up and running! You can now navigate inside the container from your terminal.
-
-## Making the Web server
+### Making the Web server
 In this case, we are writing the server in C++ for high performance. Here, we are using the Crow microframework. According to the benchmark, crow can handle up to 300,000 requests per second. It also contains both Middleware and Websocket support, which is neat for building more complex services.
 
 Crow is very simple to use, just copy ```amalgamate/crow_all.h```and use it in your project by including it in your C++ webserver with:
