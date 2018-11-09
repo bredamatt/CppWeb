@@ -79,7 +79,7 @@ Navigate to localhost:8080 in Chrome, then use the route handlers as specified i
 
 Try to look these up in ```main.cpp```
 
-## Using Crow 
+## Using Crow
 In this case, we are writing the server in C++ for high performance. Here, we are using the Crow microframework. According to the benchmark, crow can handle up to 300,000 requests per second. It also contains both Middleware and Websocket support, which is neat for building more complex services.
 
 Crow is very simple to use, just copy ```amalgamate/crow_all.h```and use it in your project by including it in your C++ webserver with:
