@@ -1,0 +1,27 @@
+*** Latest release is not working with other dependencies ****
+
+RUN git clone https://github.com/mongodb/mongo-cxx-driver.git \
+--branch releases/stable --depth 1 \
+&& cd mongo-cxx-driver/build && cmake \
+-DBSONCXX_POLY_USE_MNMLSTC=1 \
+-DCMAKE_BUILD_TYPE=Release \
+-DCMAKE_INSTALL_PREFIX=/usr/local \
+-DLIBMONGOC_DIR=/usr/lib/x86_64-linux-gnu \
+-DLIBBSON_DIR=/usr/lib/x86_64-linux-gnu \
+-DCMAKE_MODULE_PATH=/usr/src/mongo-cxx-driver-r3.0.3/cmake .. \
+&& make EP_mnmlstc_core && make && make install && ldconfig /usr/local/lib
+
+
+
+
+*** Correct definition: ***** 
+
+RUN git clone --depth 1 -b releases/v3.2 https://github.com/mongodb/mongo-cxx-driver.git \
+&& cd mongo-cxx-driver/build && cmake \
+-DBSONCXX_POLY_USE_MNMLSTC=1 \
+-DCMAKE_BUILD_TYPE=Release \
+-DCMAKE_INSTALL_PREFIX=/usr/local \
+-DLIBMONGOC_DIR=/usr/lib/x86_64-linux-gnu \
+-DLIBBSON_DIR=/usr/lib/x86_64-linux-gnu \
+-DCMAKE_MODULE_PATH=/usr/src/mongo-cxx-driver-r3.0.3/cmake .. \
+&& make EP_mnmlstc_core && make && make install && ldconfig /usr/local/lib

@@ -17,8 +17,7 @@ RUN git clone https://github.com/mongodb/mongo-c-driver.git \
 && cmake -DENABLE_AUTOMATIC_INIT_AND_CLEANUP=OFF .. \
 && make && make install && ldconfig /usr/local/lib
 
-RUN git clone https://github.com/mongodb/mongo-cxx-driver.git \
---branch releases/stable --depth 1 \
+RUN git clone --depth 1 -b releases/v3.2 https://github.com/mongodb/mongo-cxx-driver.git \
 && cd mongo-cxx-driver/build && cmake \
 -DBSONCXX_POLY_USE_MNMLSTC=1 \
 -DCMAKE_BUILD_TYPE=Release \
