@@ -158,7 +158,7 @@ int main(int argc, char* argv[]){
       res.end();
     });
 
-  // String concatenation handler ---> ORDER OF ROUTE IS IMPORTANT 
+  // String concatenation handler ---> ORDER OF ROUTE IS IMPORTANT
   CROW_ROUTE(app, "/add/<string>/<string>")
     ([](const request &req, response &res, string a, string b){
       res.set_header("Content-Type", "text/plain");
@@ -175,6 +175,19 @@ int main(int argc, char* argv[]){
       res.write(method + " rest_test");
       res.end();
     });
+
+
+  CROW_ROUTE(app, "/query")
+  ([](const request &req, response &res){
+    auto firstname = req.url_params.get("firstname");
+    auto lastname = req.url_params.get("lastname");
+    ostringstream os;
+    os << "Hello " << (firstname? firstname: "") <<
+      " " << (lastname? lastname: "") << endl;
+    res.set_header("Content-Type", "text/plain");
+    res.write(os.str());
+    res.end();
+  });
 
   // The ROOT, or HOMEPAGE
   CROW_ROUTE(app, "/")
