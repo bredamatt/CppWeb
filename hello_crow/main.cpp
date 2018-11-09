@@ -121,6 +121,7 @@ int main(int argc, char* argv[]){
     getView(res, "contact", dto);
   });
 
+  // Returns a webpage with 10 contacts from a contacts.json file 
   CROW_ROUTE(app, "/contacts")
     ([&collection](const request &req, response &res){
       mongocxx::options::find opts;
