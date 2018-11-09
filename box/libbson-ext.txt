@@ -1,0 +1,5 @@
+Additional libbson lines...
+
+RUN apt-get install git gcc automake autoconf libtool \
+&& git clone https://github.com/mongodb/libbson.git \
+&& cd libbson && ./autogen.sh  && make && make install
