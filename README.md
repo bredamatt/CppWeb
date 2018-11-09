@@ -30,7 +30,7 @@ For more information on that service, see: https://devcenter.heroku.com/articles
 
 ## Structure
 The structure of the repository is as follows:
-
+```
 --CppWeb
     |
     |---box (the initial container without MongoDB)
@@ -53,7 +53,7 @@ The structure of the repository is as follows:
     |
     |
     |---root (crow_all_.h, and other .h files here)
-
+```
 
 ## Instructions
 
