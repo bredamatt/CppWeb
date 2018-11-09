@@ -36,7 +36,7 @@ The structure of the repository is as follows:
     |---box (the initial container without MongoDB)
     |
     |
-    |---hello_crow (main.cpp, CMakeLists.txt and Dockerfile)   <<---- main folder 
+    |---hello_crow (main.cpp, CMakeLists.txt and Dockerfile)   <<---- main folder
     |       |
     |       |
     |       |----bbox (used to build MongoDB C and C++ Drivers for the container, has a Dockerfile)
@@ -56,10 +56,9 @@ The structure of the repository is as follows:
 
 
 ## Instructions
-The directory structure is as follows:
 
 
-## Making a Dockerfile
+### Making a Dockerfile
  To specify a compiler, type:
 
 ```FROM gcc:x.x.x ```
