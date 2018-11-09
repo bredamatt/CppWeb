@@ -141,7 +141,7 @@ int main(int argc, char* argv[]){
 
     // Returns a JSON object with 10 contacts from API request
     CROW_ROUTE(app, "/api/contacts")
-      ([&collection](const request &req, response &res){
+      ([&collection](const request &req){
         mongocxx::options::find opts;
         opts.skip(9);
         opts.limit(10);
