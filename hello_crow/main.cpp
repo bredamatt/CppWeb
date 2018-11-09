@@ -97,7 +97,7 @@ int main(int argc, char* argv[]){
     })
     .onclose([&](crow::websocket::connection &conn, const string &reason){
       std::lock_guard<std::mutex> _(mtx);
-      users.erease(&conn);
+      users.erase(&conn);
     })
     .onmessage([&](crow::websocket::connection &/*conn*/, const string &data, bool
     is_binary){
@@ -115,7 +115,7 @@ int main(int argc, char* argv[]){
     ([](const request &req, response &res){
       sendHtml(res, "chat");
     });
-  
+
   CROW_ROUTE(app, "/styles/<string>") // <string> must match string filename
     ([](const request &req, response &res, string filename){
       sendStyle(res, filename);

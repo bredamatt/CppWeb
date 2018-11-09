@@ -1,18 +1,63 @@
 # CppWeb
 
-This is a way to host your own website via a virtual environment. In this case,
-the virtual environment is created using a docker container which is an
-abstract representation of an operating system. This operating system
-has direct access to resources via its kernel.
-Therefore, the web server is running in an abstract environment, with direct
-access to resources. It may therefore be thought of as an encapsulated service, where connectivity is limited as a consequence. Because the server is written in C++, it is highly efficient from a performance perspective.
+This is a repository used as work in progress for my company's website.
+It is created with security and efficiency in mind, as the server is running inside a container.
+A docker container is a abstract representation of an (or virtual) operating system. This operating system
+has direct access to resources it is running on, via the virtual kernel.
+Hence, running the website can be thought of as running an encapsulated service.
+This encapsulation limits connectivity, rendering the service more secure. Only the port which
+is exposed by the program is exposed to the network.
+
+## Dependencies
+A range of tools are used to build the website:
+- C++ (http://www.cplusplus.com)
+- Boost lib (https://www.boost.org)
+- Docker (https://www.docker.com)
+- MongoDB (https://www.mongodb.com)
+- Mustache.js ()
+- Crow (https://github.com/ipkn/crow)
+- Mutex (https://en.cppreference.com/w/cpp/thread/mutex)
+- HTML (https://www.w3schools.com/html/)
+- JavaScript (https://www.javascript.com)
+- WebSocket (https://html.spec.whatwg.org/multipage/web-sockets.html#network)
+- cmake (https://cmake.org)
+- Cascading stylesheets (CSS) (https://en.wikipedia.org/wiki/Cascading_Style_Sheets)
+- AJAX (https://www.w3schools.com/php/php_ajax_intro.asp)
+
+Additionally, the service may be deployed to Heroku easily using Heroku's Container Registry & Runtime Service.
+
+For more information on that service, see: https://devcenter.heroku.com/articles/container-registry-and-runtime
+
+## Structure
+The structure of the repository is as follows:
+
+--CppWeb
+    |
+    |---box (the initial container without MongoDB)
+    |
+    |
+    |---hello_crow (main.cpp, CMakeLists.txt and Dockerfile)   <<---- main folder 
+    |       |
+    |       |
+    |       |----bbox (used to build MongoDB C and C++ Drivers for the container, has a Dockerfile)
+    |       |
+    |       |----build (executable folder)
+    |       |
+    |       |----public (.html files / views)
+    |               |
+    |               |----images  (.jpeg files)
+    |               |
+    |               |----scripts (.js scripts)
+    |               |
+    |               |----styles (.css files)
+    |
+    |
+    |---root (crow_all_.h, and other .h files here)
 
 
-It may be useful to start with making the Dockerfile.
-This Dockerfile tells the container which instructions to
-run. These instructions are necessary, since the container
-will by necessity require certain packages to execute the
-code that you are writing.
+## Instructions
+The directory structure is as follows:
+
 
 ## Making a Dockerfile
  To specify a compiler, type:
