@@ -23,6 +23,7 @@ using bsoncxx::builder::stream::finalize;
 using bsoncxx::builder::stream::open_array;
 using bsoncxx::builder::stream::open_document;
 using bsoncxx::builder::basic::kvp;
+using bsoncxx::builder::basic::make_document;
 using mongocxx::cursor;
 
 using namespace std;
@@ -91,6 +92,12 @@ int main(int argc, char* argv[]){
       sendImage(res, filename);
     });
 
+  CROW_ROUTE(app, "/contact/<string>")
+  ([&collection](string email){
+    auto doc = collection.find_one(make_document(kvp("email", email)));
+    return crow::response(bsoncxx::to_json(doc.value().view()));
+  });
+  
   CROW_ROUTE(app, "/contacts")
     ([&collection](){
       mongocxx::options::find opts;
