@@ -4,6 +4,8 @@
 #include <vector>
 #include <cstdlib>
 #include <boost/filesystem.hpp>
+#include <unordered_set> // data structure, no order
+#include <mutex> // thread safety
 
 
 #include <bsoncxx/builder/stream/document.hpp>
@@ -77,6 +79,8 @@ void notFound(response &res, const string &message){
 }
 
 int main(int argc, char* argv[]){
+  std::mutex mtx;
+  std::unordered_set<crow::websocket::connection *> users;
   crow::SimpleApp app;
   set_base("."); // set location of mustache templates
 
@@ -85,6 +89,33 @@ int main(int argc, char* argv[]){
   mongocxx::client conn{mongocxx::uri{mongoConnect}};
   auto collection = conn["heroku_vw7x7j3f"]["contacts"];
 
+  CROW_ROUTE(app, "/ws") // ws is the route handler for websocket.js
+    .websocket()
+    .onopen([&](crow::websocket::connection &conn) {
+      std::lock_guard<std::mutex> _(mtx);
+      users.insert(&conn);
+    })
+    .onclose([&](crow::websocket::connection &conn, const string &reason){
+      std::lock_guard<std::mutex> _(mtx);
+      users.erease(&conn);
+    })
+    .onmessage([&](crow::websocket::connection &/*conn*/, const string &data, bool
+    is_binary){
+      std::lock_guard<std::mutex> _(mtx);
+      for(auto user : users){
+        if(is_binary){
+          user->send_binary(data);
+        } else {
+          user->send_text(data);
+        }
+      }
+    });
+
+  CROW_ROUTE(app, "/chat")
+    ([](const request &req, response &res){
+      sendHtml(res, "chat");
+    });
+  
   CROW_ROUTE(app, "/styles/<string>") // <string> must match string filename
     ([](const request &req, response &res, string filename){
       sendStyle(res, filename);
