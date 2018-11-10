@@ -1,12 +1,6 @@
 # CppWeb
 
-This is a repository used as work in progress for my company's website.
-It is created with security and efficiency in mind, as the server is running inside a container.
-A docker container is a abstract representation of an (or virtual) operating system. This operating system
-has direct access to resources it is running on, via the virtual kernel.
-Hence, running the website can be thought of as running an encapsulated service.
-This encapsulation limits connectivity, rendering the service more secure. Only the port which
-is exposed by the program is exposed to the network.
+This is a repository used as work in progress for my company's website. It is created with security and performance in mind, as the C++ server is running inside a Docker container.
 
 ## Dependencies
 A range of tools are used to build the website:
